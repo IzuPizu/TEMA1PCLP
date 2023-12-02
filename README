@@ -1,0 +1,147 @@
+ ------ 1. PROBLEMA CUTIILOR ------
+
+  Timp de implementare : 3-4 ore
+
+  -CERINTA 1-
+  Pentru aceasta problema am citit numarul de prizonieri si continutul 
+  fiecarei cutii in parte. Pentru rezolvarea primei cerinte am creat o 
+  functie 'win' ce are ca scop returnarea valorii 1  in cazul in care 
+  prizonierii castiga , sau 0 in caz contrar.
+  In interiorul funciei folosim un contor cu care iteram prizonierii
+  si o variabila pe care o initializam cu 'false',semn ca prizonierul
+ nu si-a gasit inca cutia ce contine numarul sau.
+  Cu un alt contor parcurgem cutiile si daca valoarea din interiorul cutiei 
+  corespunde cu numarul prizonierului curent , "gasit" ia valoarea 'true'.
+  La final trecem la urmatoarea cutie.
+  Daca cel putin unul dintre prizonieri nu-si gaseste numarul in cutie, 
+  "gasit" devine 'false' ,iar functia returneaza valoarea 0, semn ca
+  jucatorii au pierdut.
+  Daca toti prizonierii si-au gasit numarul(variabila 'gasit' a ramas true)
+  functia returneaza 1 (prizonierii castiga).
+
+  -CERINTA 2-
+  Pentru afisarea ciclurilor folosim din nou un contor cu care iteram
+  prizonierii o variabila locala 'found' initializata cu 0 ,un vector
+  de frecventa'vizitat' in care vom retine daca cutia curenta a mai 
+  fost sau nu deschisa si un alt vector 'l' in care vom construi ciclul.
+   Parcurgem prizonierii si initializam o variabila 'c' cu numarul 
+   prizonierului curent ,iar cat timp valoarea din interiorul cutiei 
+   nu a mai fost gasita inainte(nu s-a format inca un ciclu), adaugam 
+   numarul cutiei in vectorul 'l', marcam cutia ca fiind 'vizitata'
+   si trecem la urmatoarea . Repetam pasii pana cand se ajunge
+   la o cutie care a fost deja deschisa (adica s-a format un ciclu) 
+   si afisam ciclul .
+
+------ 2. NUMERE COMPLEXE LUNGI ------
+
+Timp de implementare : ~36 ore
+
+  Pentru rezolvarea problemei am creat mai multe functii :
+  -> compare_strings : compara doi vectori in care se afla numere 
+   (prin concatenarea caracterelor) si returneaza:
+  - 1 , daca primul nr este mai mare 
+  - 2, daca al doilea nr este mai mare
+  - 0 , daca numerele sunt egale.
+ Vectorii  primiti ca parametru reprezinta (in functie de caz),
+  cele doua parti reale sau imaginare pe care dorim sa le comparam.
+  
+  ->adunare : aduna cei doi vectori astfel :
+   Se incepe cu partea imaginara a numerelor din cei doi vectori
+    si se verifica bitul de semn pentru fiecare parte imaginara . 
+
+  Daca ambele sunt pozitive (bitii de semn sunt '0' si '0'), 
+  cele doua numere se aduna bit cu bit incepand de la dreapta la stanga
+  si se tine cont de "transport" (mai exact variabila 'carry') ,si fiindca 
+  rezultatul este garantat un numar pozitiv , bitul de semn ramane '0'
+  deci nu e nevoie sa-l schimbam.
+  Daca bitii de semn sunt '0' si '1' , respectiv avem un numar pozitiv
+  si un numar negativ de adunat, mai intai se compara cele doua numere 
+  apeland functia 'compare_strings' pentru a vedea care dintre numere 
+  este mai mare ( in modul !) si se efectueaza scaderea numarului mai
+  mic din cel mai mare (tinand cont de carry/imprumut).De asemenea,
+  bitul de semn al rezultatului devine cel al numarului mai mare(in modul).
+  Daca ambii biti sunt '1' (negativi) , se efectueaza adunarea bit cu bit
+  de la dreapta la stanga exact ca in primul caz , iar bitul de semn
+  ramane tot negativ '1'.
+
+  Algoritmul se repeta si pentru partea reala a numerelor ,
+  intocmai ca la partea imaginara.
+
+  ->scadere:scade cei doi vectori astfel:
+  Incepem din nou cu partea imaginara a nr si verificam bitul de semn 
+  pentru cele doua parti.
+  Daca avem '0' si '1' (pozitiv si negativ) , cele doua numere se aduna 
+  bit cu bit , iar bitul de semn al rezultatului va fi pozitiv('0').
+  Daca avem '0' si '0' sau '1' si '1' ,avem o scadere de efectuat deci
+  va trebui sa comparam cele doua numere apleand functia 'compare_strings',
+  pentru a scadea (precum am facut in functia adunare) numarul mai mic 
+  din numarul mai mare.
+  Daca avem '1' si '0' vom aduna bitii iar bitul de semn al rezultatului 
+  va ramane '1' (negativ).
+
+  Algoritmul se repeta si pentru partea reala.
+
+  In main vom citi dimensiunea vectorilor si primul vector a ,
+  iar apoi vom continua prin a citi semnul (adunare sau scadere) 
+  si vectorul urmator pana la introducerea semnului '0'.
+  Dupa fiecare citire a vectorului b , vom apela functia
+  corespunzatoare semnului introdus.
+
+------  4. CAR DEALER ------
+
+Timp de implementare : ~10 ore
+
+  Pentru rezolvarea problemei am creat o structura ajutatoare
+  'struct car' ce contine exact campurile de care avem nevoie .
+
+  Pentru a efectua alocarea dinamica , am alocat mai intai memorie 
+  intregii structuri pentru N masini , iar apoi , pentru fiecare masina,
+  am alocat memorie string-urilor 'brand,numar,combustibil'.
+  Pentru a fi siguri ca alocam exact cat e nevoie (lungimea sirului + 1),
+  am folosit 3 vectori auxiliari carora le-am putut determina lungimea ,
+  iar apoi am copiat cei 3 vectori cititi in string-urile lor corespunzatoare
+  pentru care am facut alocarea dinamica.
+
+- CERINTA 1 -
+
+  Pentru rezolvarea primei cerinte am creat o functie 'statistica' ce primeste
+  ca parametrii o variabila pointer de tip struct car , numarul de masini si 
+  tipul de combustibil .Astfel , pentru fiecare tip de combustibil 
+  functia se apeleaza returnand la final numarul de masini 
+  care functioneaza pe combustibilul respectiv.
+
+- CERINTA 2 -
+
+  Pentru rezolvarea celei de-a doua cerinte am creat functia 'consum_si_suma'
+  ce intoarce prin parametrii sai rezultatul sumei combustibilului si 
+  suma platita. Consumul a fost calculat dupa formula (consum*km/100) ,
+  iar mai apoi  adaugat la suma. Suma platita a fost calulcata in functie 
+  de tipul combustibilului si adaugata la suma totala.
+
+- CERINTA 3 - 
+
+  Pentru rezolvarea ultimei cerinte am decis sa "sectionez" 
+  numarul de inmatriculare,verificand pentru fiecare portiune,
+  incepand de la dreapta la stanga , daca corespunde cerintelor.
+  Functia 'numar_corect' returneaza valoarea 0 daca numarul de 
+  inmatriculare este gresit , sau 1 in caz contrar.
+  Pornind de la capatul din dreapta al sirului ,verificam daca exista un 
+  element printre ultimele 3 care nu este litera iar in caz afirmativ , 
+  se iese din functie(numarul este gresit).
+  Cum urmatoarea sectiune trebuie sa contina cel putin 2 , cel mult 3 ,cifre,
+  verificam doar urmatoarele doua elemente testand daca sunt intr-adevar cifre.
+  In cazul in care indeplinesc conditia (cel putin 2 sunt cifre) , 
+  putem continua cu verificarea urmatoarei sectiuni.
+  Deoarece am vazut ca exista cel putin 2 cifre , inseamna ca mai putem avea
+  maxim 1,urmat de 1 sau 2 litere. Pentru a tine cont de ordinea lor exacta
+  (mai intai cifre si dupa doar litere) , am initializat si o variabila
+  'first' care va lua valoarea 1 in momentul in care s-a gasit prima litera
+  (practic dupa aceasta nu mai putem avea cifre pe urmatoarele pozitii),
+  dar si doua variabile ce vor numara cate cifre sau litere s-au gasit
+  (pentru a nu depasi maximul admis).
+  Daca pana la final functia nu a intors valoarea 0
+  (nu s-a gasit niciun caz gresit), inseamna ca numarul este corect
+  deci putem returna 1.
+
+  La finalul programului am eliberat memoria alocata pe heap campurilor pentru 
+  fiecare masina precum si a structurii.
